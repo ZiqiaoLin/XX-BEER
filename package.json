@@ -1,0 +1,19 @@
+{
+  "name": "xx-beer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZiqiaoLin/XX-BEER.git"
+  },
+  "author": "Ziqiao Lin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ZiqiaoLin/XX-BEER/issues"
+  },
+  "homepage": "https://github.com/ZiqiaoLin/XX-BEER#readme",
+  "description": ""
+}
