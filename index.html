@@ -6,8 +6,11 @@
   <title>XX-BEER</title>
   <link rel="stylesheet" href="input.css">
   <link rel="stylesheet" href="output.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+
 </head>
-<body class="font-sans">
+<body class="font-[Bebas_Neue]">
   <!-- nav bar logo search cart -->
   <nav class="relative flex justify-between items-center px-2.5 bg-[#FFBF00] h-12">
     <a href="index.html"><img src="/images/logo.png" class="h-10"></a>
@@ -49,7 +52,7 @@
   <main id="mainContent" class="transition-all duration-300 ease-in-out">
     <!-- product category -->
     <div>
-      <ul id="navCategory" class="flex justify-around text-gray-700 h-15 text-lg pt-4">
+      <ul id="navCategory" class="flex justify-around bg-[#FFBF00] border-t-stone-50 border-t-[0.5px] text-gray-700 font-extrabold h-15 text-2xl pt-4">
         <li class="flex-1 h-10 hover:text-gray-500 hover:border-b-2 text-center mx-3 cursor-pointer select-none" data-category="beer">BEER</li>
         <li class="flex-1 h-10 hover:text-gray-500 hover:border-b-2 text-center mx-3 cursor-pointer select-none" data-category="shirt">SHIRT</li>
         <li class="flex-1 h-10 hover:text-gray-500 hover:border-b-2 text-center mx-3 cursor-pointer select-none" data-category="cap">CAP</li>
@@ -57,26 +60,40 @@
       </ul>
     </div>
     <!-- banner -->
-     <div id="productBanner">
+     <div id="productBanner" class="mb-6">
       <div class="relative group overflow-hidden" data-category="beer">
-        <h2 class="absolute z-10 text-stone-50 text-5xl font-extrabold w-full text-center top-1/2 transform -translate-y-1/2 pointer-events-none drop-shadow-lg">BEER</h2>
+        <h2 class="absolute z-10 text-stone-50 text-6xl font-extrabold w-full text-center top-1/2 transform -translate-y-1/2 pointer-events-none drop-shadow-lg">BEER</h2>
         <img src="images/beer-banner.jpg" class="w-full h-auto transform transition-transform duration-[10000ms] group-hover:scale-150 group-hover:duration-[20000ms]">
       </div>
       <div class="relative group overflow-hidden hidden" data-category="shirt">
-        <h2 class="absolute z-10 text-stone-50 text-5xl font-extrabold w-full text-center top-1/2 transform -translate-y-1/2 pointer-events-none drop-shadow-lg">SHIRT</h2>
+        <h2 class="absolute z-10 text-stone-50 text-6xl font-extrabold w-full text-center top-1/2 transform -translate-y-1/2 pointer-events-none drop-shadow-lg">SHIRT</h2>
         <img src="images/clothes-banner.jpg" class="w-full h-auto transform transition-transform duration-[10000ms] group-hover:scale-150 group-hover:duration-[20000ms]">
       </div>
       <div class="relative group overflow-hidden hidden" data-category="cap">
-        <h2 class="absolute z-10 text-stone-50 text-5xl font-extrabold w-full text-center top-1/3 transform -translate-y-1/2 pointer-events-none drop-shadow-lg">CAP</h2>
+        <h2 class="absolute z-10 text-stone-50 text-6xl font-extrabold w-full text-center top-1/3 transform -translate-y-1/2 pointer-events-none drop-shadow-lg">CAP</h2>
         <img src="images/cap-banner.jpg" class="w-full h-auto transform transition-transform duration-[10000ms] group-hover:scale-150 group-hover:duration-[20000ms]">
       </div>
       <div class="relative group overflow-hidden hidden" data-category="sock">
-        <h2 class="absolute z-10 text-stone-50 text-5xl font-extrabold w-full text-center top-1/2 transform -translate-y-1/2 pointer-events-none drop-shadow-lg">SOCK</h2>
+        <h2 class="absolute z-10 text-stone-50 text-6xl font-extrabold w-full text-center top-1/2 transform -translate-y-1/2 pointer-events-none drop-shadow-lg">SOCK</h2>
         <img src="images/sock-banner.jpg" class="w-full h-auto transform transition-transform duration-[10000ms] group-hover:scale-150 group-hover:duration-[20000ms]">
       </div>
      </div>
      <!-- category -->
-      
+      <div class="flex flex-wrap border-t-[0.5px] border-t-gray-400">
+        <div class="flex flex-col w-1/3 border-r-[0.5px] border-r-gray-400 border-b-[0.5px] border-b-gray-400">
+          <div class="group overflow-hidden">
+            <img src="images/SUMMER BRIGHT LAGER.jpg" alt="SUMMER BRIGHT LAGER" class="w-full h-auto transform transition-transform duration-[500ms] group-hover:scale-120 group-hover:duration-[1000ms]">
+          </div>
+          <h3 class="font-extrabold text-2xl text-center">SUMMER BRIGHT LAGER</h3>
+          <div class="flex justify-around py-1.5 px-1.5">
+            <span class="flex items-center justify-center w-16 h-6 bg-[#98252d] text-stone-50 text-sm font-bold">$15.00</span><span class="flex items-center justify-center h-6 text-sm font-medium">IN STOCK</span>
+          </div>
+          <div class="flex justify-between border-[1px] border-black w-32 h-8 px-4 leading-[36px] my-3 mx-auto">
+            <button class="font-extralight text-2xl cursor-pointer">-</button><span class="font-light">1</span><button class="font-extralight text-2xl cursor-pointer">+</button>
+          </div>
+          <button class="border-[1px] border-[#98252d] w-44 h-8 mb-3 mx-auto font-bold text-[#98252d] hover:bg-[#98252d] hover:text-stone-50 cursor-pointer">ADD TO CART</button>
+        </div>
+      </div>
   </main>
   <script src="main.js"></script>
 </body>
