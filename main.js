@@ -30,6 +30,7 @@
       banners.forEach(div => {
         div.classList.toggle('hidden', div.dataset.category !== category)
       })
+      renderProducts(category)
     }
   })
 })();
@@ -52,6 +53,98 @@
       banners.forEach(div => {
         div.classList.toggle('hidden', div.dataset.category !== category)
       })
+      renderProducts(category)
     }
   })
 })();
+
+// render product
+const renderProducts = (category) => {
+  fetch('/api/products')
+    .then(res => res.json())
+    .then(products => {
+      const container = document.querySelector('#productList')
+      container.innerHTML = ''
+      products.forEach(product => {
+        if (product.product_category.toLowerCase() === category.toLowerCase()) {
+          const inStock = product.product_stock > 0;
+          const stock = product.product_stock;
+
+          container.innerHTML += `
+            <div class="flex flex-col w-1/2 sm:w-1/3 border-r-[0.5px] border-r-gray-400 border-b-[0.5px] border-b-gray-400">
+              <div class="group overflow-hidden">
+                <img src="${product.product_src}" alt="${product.product_name}" class="w-full h-auto transform transition-transform duration-[500ms] group-hover:scale-120 group-hover:duration-[1000ms]">
+              </div>
+              <h3 class="font-extrabold text-2xl text-center">${product.product_name}</h3>
+              <div class="flex justify-around py-1.5 px-1.5">
+                <span class="flex items-center justify-center w-16 h-6 bg-[#98252d] text-stone-50 text-sm font-bold">$${product.product_price}</span>
+                <span class="stock flex items-center justify-center h-6 text-sm font-medium" data-stock="${product.product_stock}">${inStock ? 'IN STOCK' : 'OUT OF STOCK'}</span>
+              </div>
+
+              ${inStock ? `
+                <div class="flex justify-between border border-black w-32 h-8 px-4 leading-[36px] my-3 mx-auto">
+                  <button class="decrease font-extralight text-2xl cursor-pointer">-</button>
+                  <span class="quantity font-light">1</span>
+                  <button class="increase font-extralight text-2xl cursor-pointer">+</button>
+                </div>
+                <button class="addToCart border border-[#98252d] w-44 h-8 mb-8 mx-auto font-bold text-[#98252d] hover:bg-[#98252d] hover:text-stone-50  cursor-pointer">
+                  ADD TO CART
+                </button>
+              ` : `
+                <button class="border border-gray-400 w-44 h-8 mx-auto mb-8 font-bold text-gray-400 cursor-not-allowed line-through">
+                  OUT OF ORDER
+                </button>
+              `}
+            </div>
+          `;
+        }
+      });
+
+      quantityControls();
+    });
+};
+
+
+// render product by banner category
+(function(){
+  document.addEventListener('DOMContentLoaded', () => {
+    const banners = document.querySelectorAll('#productBanner > div')
+    let activeCategory = 'beer'
+
+    banners.forEach(banner => {
+      if (!banner.classList.contains('hidden')) {
+        activeCategory = banner.dataset.category.toLowerCase()
+      }
+    })
+
+    renderProducts(activeCategory);
+  })
+
+})();
+
+// quantity control 
+function quantityControls() {
+  document.querySelectorAll('.decrease').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const container = e.target.closest('div')
+      const quantitySpan = container.querySelector('.quantity')
+      let quantity = parseInt(quantitySpan.innerHTML)
+      if (quantity > 1){
+        quantitySpan.innerHTML = quantity - 1
+      }
+    })
+  })
+  document.querySelectorAll('.increase').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const container = e.target.closest('div')
+      const quantitySpan = container.querySelector('.quantity')
+      const card = e.target.closest('div.flex-col')
+      const stock = card.querySelector('.stock')
+      const maxStock = stock ? parseInt(stock.dataset.stock) : 1
+      let quantity = parseInt(quantitySpan.innerHTML)
+      if (quantity < maxStock) {
+        quantitySpan.innerHTML = quantity + 1
+      }
+     })
+  })
+}
