@@ -41,11 +41,18 @@ checkVaild('phone', /^(\+61|0)4\d{8}$/)
 checkVaild('name', /^[a-zA-Z\s'-]{2,50}$/)
 checkVaild('postcode', /^\d{4}$/);
 
-// check empty field
+// check submit valid
 (function(){
   const form = document.querySelector('form')
   const inputs = document.querySelectorAll('input')
+  const rules = {
+    email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    phone: /^(\+61|0)4\d{8}$/,
+    name: /^[a-zA-Z\s'-]{2,50}$/,
+    postcode: /^\d{4}$/
+  }
 
+  
   inputs.forEach(input => {
     input.addEventListener('input', () => {
       const div = input.closest('div')
@@ -59,20 +66,75 @@ checkVaild('postcode', /^\d{4}$/);
 
   form.addEventListener('submit', (e) => {
     e.preventDefault()
-    const input = document.querySelectorAll('form input')
-    input.forEach(input => {
+    let isValid = true
+    
+    inputs.forEach(input => {
       const div = input.closest('div')
-      if(!input.value.trim()) {
-        div.querySelector('.empty').classList.remove('hidden')
+      const value = input.value.trim()
+      const id = input.id
+      const emptyP = div.querySelector('.empty')
+      const validP = div.querySelector('.validP')
+
+      emptyP?.classList.add('hidden')
+      validP?.classList.add('hidden')
+      input.classList.remove('border-red-600')
+      input.classList.add('border-gray-500')
+
+      // check empty value
+      if (!value) {
+        emptyP?.classList.remove('hidden')
         input.classList.add('border-red-600')
         input.classList.remove('border-gray-500')
-      } else {
-        div.querySelector('.empty').classList.add('hidden')
-        input.classList.remove('border-red-600')
-        input.classList.add('border-gray-500')
+        isValid = false
+        return
+      }
+      // check valid input
+      if (rules[id] && !rules[id].test(value)) {
+        validP?.classList.remove('hidden')
+        input.classList.add('border-red-600')
+        input.classList.remove('border-gray-500')
+        isValid = false
       }
     })
-
-  })
+    if (isValid) {
+      const userData = {
+        name: document.querySelector('#name').value.trim(),
+        email: document.querySelector('#email').value.trim()
+      }
+      checkStock(userData)
+    }
+    })
 })();
+
+// check inventory 
+let cart = JSON.parse(localStorage.getItem('cart')) || []
+ 
+function checkStock(userData) {
+  fetch('/api/products')
+    .then(res => res.json())
+    .then(products => {
+      let allAvailable = true;
+      const unavailableItems = [];
+
+      for (let item of cart) {
+        const product = products.find(p => p.product_id === item.id);
+        if (!product || product.product_stock < item.quantity) {
+          allAvailable = false;
+          unavailableItems.push(item.name)
+        }
+      }
+
+      if (allAvailable) {
+        localStorage.removeItem('cart')
+        localStorage.removeItem('cartTime')
+
+        const name = userData.name
+        const email = userData.email
+
+        window.location.href = `confirmation.html?success=1&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`
+      } else {
+        window.location.href = `confirmation.html?success=0`
+      }
+    });
+}
 
