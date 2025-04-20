@@ -1,10 +1,10 @@
 // checkout page floatung label
 (function () {
   const input = document.querySelectorAll('form input')
-  
+
   input.forEach(input => {
     const label = document.querySelector(`label[for="${input.id}"]`)
-    if (input.value.trim() !== ''){
+    if (input.value.trim() !== '') {
       label.classList.add('top-1', 'text-xs')
       label.classList.remove('top-3.5', 'text-sm')
     }
@@ -16,7 +16,7 @@
       if (input.value.trim() === '') {
         label.classList.remove('top-1', 'text-xs')
         label.classList.add('top-3.5', 'text-sm')
-      } 
+      }
     })
   })
 })();
@@ -42,7 +42,7 @@ checkVaild('name', /^[a-zA-Z\s'-]{2,50}$/)
 checkVaild('postcode', /^\d{4}$/);
 
 // check submit valid
-(function(){
+(function () {
   const form = document.querySelector('form')
   const inputs = document.querySelectorAll('input')
   const rules = {
@@ -52,7 +52,7 @@ checkVaild('postcode', /^\d{4}$/);
     postcode: /^\d{4}$/
   }
 
-  
+
   inputs.forEach(input => {
     input.addEventListener('input', () => {
       const div = input.closest('div')
@@ -67,7 +67,7 @@ checkVaild('postcode', /^\d{4}$/);
   form.addEventListener('submit', (e) => {
     e.preventDefault()
     let isValid = true
-    
+
     inputs.forEach(input => {
       const div = input.closest('div')
       const value = input.value.trim()
@@ -103,14 +103,14 @@ checkVaild('postcode', /^\d{4}$/);
       }
       checkStock(userData)
     }
-    })
+  })
 })();
 
 // check inventory 
 let cart = JSON.parse(localStorage.getItem('cart')) || []
- 
+
 function checkStock(userData) {
-  fetch('/api/products')
+  fetch('api/products')
     .then(res => res.json())
     .then(products => {
       let allAvailable = true;
@@ -125,6 +125,22 @@ function checkStock(userData) {
       }
 
       if (allAvailable) {
+        // Save cart backup and user info before clearing cart
+        localStorage.setItem('cartBackup', JSON.stringify(cart))
+
+        // Save complete user info
+        const userInfo = {
+          name: document.querySelector('#name').value.trim(),
+          email: document.querySelector('#email').value.trim(),
+          phone: document.querySelector('#phone').value.trim(),
+          street: document.querySelector('#street').value.trim(),
+          city: document.querySelector('#city').value.trim(),
+          state: document.querySelector('#state').value.trim(),
+          postcode: document.querySelector('#postcode').value.trim()
+        }
+        localStorage.setItem('userInfo', JSON.stringify(userInfo))
+
+        // Clear original cart
         localStorage.removeItem('cart')
         localStorage.removeItem('cartTime')
 

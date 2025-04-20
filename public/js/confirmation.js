@@ -43,21 +43,19 @@
             $${Number(subTotal).toFixed(2)}
           </div>
         </div>
-      </div>
-      <div id="totalPrice" class="flex justify-end font-semibold">TOTAL: $${total.toFixed(2)} AUD</div>
-      <h2 class="font-bold mb-3">Contact Information</h2>
-      <div class="border-b-[0.5px] border-b-gray-400 pb-5">
-        <ul>
-          <li>Name: ${info.name}</li>
-          <li>Email: ${info.email}</li>
-          <li>Phone: ${info.phone}</li>
-          <li>address: ${info.street}, ${info.city}  ${info.state} ${info.postcode}</li>
-        </ul>
-      </div>
         `
       })
+
+      totalEl.innerHTML = `TOTAL: $${total.toFixed(2)} AUD`
+
+      contactEl.innerHTML = `
+        <li>Name: ${info.name}</li>
+        <li>Email: ${info.email}</li>
+        <li>Phone: ${info.phone}</li>
+        <li>Address: ${info.street}, ${info.city}  ${info.state} ${info.postcode}</li>
+      `
       // Update database stock
-      fetch('/api/update-stock', {
+      fetch('api/update-stock', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(cart)

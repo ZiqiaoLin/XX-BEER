@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XX BEER SHOPPING CART</title>
+  <link href="css/input.css" rel="stylesheet">
+  <link href="css/output.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+
+<body class="cartPage flex flex-col items-center min-h-screen font-[Bebas_Neue]">
+  <!-- nav bar logo cart -->
+  <nav class="flex justify-between items-center w-full px-6 bg-[#FFBF00] h-12">
+    <a href="index.html"><img src="images/logo.png" class="h-10"></a>
+    <div class="flex gap-3 text-lg">
+      <!-- cart -->
+      <a href="cart.html" class="relative font-[icomoon] text-gray-700 hover:text-gray-500"><span
+          class="cartCount absolute -top-1 -right-2 bg-[#98252d] text-stone-50 text-[10px] w-3 h-3 rounded-full flex items-center justify-center transition-all duration-200 scale-0 opacity-0">0</span></a>
+    </div>
+  </nav>
+  <main class="flex-1 w-11/12">
+    <!-- cart empty -->
+    <div id="emptyCart" class="hidden">
+      <div class="flex flex-col items-center justify-center w-full h-64">
+        <h1 class="text-center text-4xl mb-8">YOU CART IS EMPTY</h1>
+        <a href="index.html"
+          class="border border-[#98252d] w-44 h-8 mb-8 mx-auto font-bold text-[#98252d] hover:bg-[#98252d] hover:text-stone-50  cursor-pointer text-center leading-8">CONTINUE
+          SHOPPING</a>
+      </div>
+    </div>
+    <!-- cart not empty  -->
+    <div id="itemsCart" class="hidden">
+      <div class="flex justify-between items-center my-6 h-28">
+        <h1 class="text-3xl">YOUR CART</h1>
+        <a href="index.html"
+          class="border border-[#98252d] w-44 h-8 font-bold text-[#98252d] hover:bg-[#98252d] hover:text-stone-50  cursor-pointer text-center leading-8">Continue
+          Shopping</a>
+      </div>
+
+      <div class="grid grid-cols-3 items-center font-extralight mb-2">
+        <span>PRODUCT</span>
+        <span class="pl-16">QUANTITY</span>
+        <span class="text-right">PRICE</span>
+      </div>
+      <div id="cartList" class="border-t-[0.5px] border-t-gray-400 border-b-[0.5px] border-b-gray-400 mb-4">
+        <!-- product in cart will render here  -->
+      </div>
+
+      <div class="flex justify-between">
+        <button id="clearCart"
+          class="border border-[#98252d] w-24 h-6 font-bold text-[#98252d] hover:bg-[#98252d] hover:text-stone-50  cursor-pointer text-center leading-6">CLEAR
+          CART</button>
+        <div id="totalPrice" class="text-xl">TOTAL: $40.00 AUD</div>
+      </div>
+      <div class="flex justify-center mt-8 mb-12">
+        <a href="checkout.html"
+          class="flex justify-center items-center border border-[#98252d] w-60 h-10 font-bold text-[#98252d] hover:bg-[#98252d] hover:text-stone-50  cursor-pointer">CHECK
+          OUT</a>
+      </div>
+    </div>
+
+
+  </main>
+
+  <!-- footer -->
+  <footer class="flex justify-between items-center px-6 bg-[#FFBF00] h-16 w-full">
+    <a href="index.html"><img src="images/logo.png" class="h-10"></a>
+  </footer>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

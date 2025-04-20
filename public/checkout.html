@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CHECK OUT</title>
-  <link href="input.css" rel="stylesheet">
-  <link href="output.css" rel="stylesheet">
+  <link href="css/input.css" rel="stylesheet">
+  <link href="css/output.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
+
 <body class="checkOutPage flex flex-col items-center min-h-screen font-[Roboto] bg-[#FFBF00]">
   <nav class="flex justify-between items-center w-full px-6 bg-[#FFBF00] h-12 border-b border-gray-500">
     <a href="index.html"><img src="/images/logo.png" class="h-10"></a>
@@ -16,45 +18,52 @@
       <a href="cart.html" class="relative font-[icomoon] text-gray-700 hover:text-gray-500"><span
           class="cartCount absolute -top-1 -right-2 bg-[#98252d] text-stone-50 text-[10px] w-3 h-3 rounded-full flex items-center justify-center transition-all duration-200 scale-0 opacity-0">0</span></a>
     </div>
-  </nav>    
+  </nav>
   <main class="flex-1 w-3/4 my-8">
     <h2 class="font-bold text-xl">Contact</h2>
     <form class="flex flex-col my-5" novalidate>
       <div class="email relative mb-6">
-        <input type="email" id="email" name="email" class="h-12 px-3 pt-5 pb-1 w-full bg-stone-50 border border-gray-500 rounded-md focus-within:border-2 focus-within:border-sky-600 text-sm font-extralight outline-none" />
-        <label for="email" class="absolute left-3 top-3.5 text-gray-500 text-sm transition-all duration-200 ease-in-out pointer-events-none">Email</label>
+        <input type="email" id="email" name="email"
+          class="h-12 px-3 pt-5 pb-1 w-full bg-stone-50 border border-gray-500 rounded-md focus-within:border-2 focus-within:border-sky-600 text-sm font-extralight outline-none" />
+        <label for="email"
+          class="absolute left-3 top-3.5 text-gray-500 text-sm transition-all duration-200 ease-in-out pointer-events-none">Email</label>
         <p class="empty hidden mt-1 ml-2 text-xs text-red-600">Enter an email</p>
         <p class="validP hidden mt-1 ml-2 text-xs text-red-600">Enter a vaild email</p>
       </div>
       <div class="phone relative mb-6">
-        <input type="tel" id="phone" name="phone" class="h-12 px-3 pt-5 pb-1 w-full bg-stone-50 border border-gray-500 rounded-md focus-within:border-2 focus-within:border-sky-600 text-sm font-extralight outline-none" />
+        <input type="tel" id="phone" name="phone"
+          class="h-12 px-3 pt-5 pb-1 w-full bg-stone-50 border border-gray-500 rounded-md focus-within:border-2 focus-within:border-sky-600 text-sm font-extralight outline-none" />
         <label for="phone"
           class="absolute left-3 top-3.5 text-gray-500 text-sm transition-all duration-200 ease-in-out pointer-events-none">Phone</label>
         <p class="empty hidden mt-1 ml-2 text-xs text-red-600">Enter a phone number</p>
         <p class="validP hidden mt-1 ml-2 text-xs text-red-600">Enter a vaild phone number</p>
       </div>
       <div class="name relative mb-6">
-        <input type="text" id="name" name="name" class="h-12 px-3 pt-5 pb-1 w-full bg-stone-50 border border-gray-500 rounded-md focus-within:border-2 focus-within:border-sky-600 text-sm font-extralight outline-none" />
+        <input type="text" id="name" name="name"
+          class="h-12 px-3 pt-5 pb-1 w-full bg-stone-50 border border-gray-500 rounded-md focus-within:border-2 focus-within:border-sky-600 text-sm font-extralight outline-none" />
         <label for="name"
           class="absolute left-3 top-3.5 text-gray-500 text-sm transition-all duration-200 ease-in-out pointer-events-none">Name</label>
         <p class="empty hidden mt-1 ml-2 text-xs text-red-600">Enter a name</p>
         <p class="validP hidden mt-1 ml-2 text-xs text-red-600">Enter a vaild name</p>
       </div>
       <div class="street relative mb-6">
-        <input type="text" id="street" name="street" class="h-12 px-3 pt-5 pb-1 w-full bg-stone-50 border border-gray-500 rounded-md focus-within:border-2 focus-within:border-sky-600 text-sm font-extralight outline-none" />
+        <input type="text" id="street" name="street"
+          class="h-12 px-3 pt-5 pb-1 w-full bg-stone-50 border border-gray-500 rounded-md focus-within:border-2 focus-within:border-sky-600 text-sm font-extralight outline-none" />
         <label for="street"
           class="absolute left-3 top-3.5 text-gray-500 text-sm transition-all duration-200 ease-in-out pointer-events-none">Street</label>
         <p class="empty hidden mt-1 ml-2 text-xs text-red-600">Enter a street</p>
       </div>
       <div class="grid grid-cols-3 justify-between gap-4">
-          <div class="city relative mb-8">
-          <input type="text" id="city" name="city" class="h-12 px-3 pt-5 pb-1 w-full bg-stone-50 border border-gray-500 rounded-md focus-within:border-2 focus-within:border-sky-600 text-sm font-extralight outline-none" />
+        <div class="city relative mb-8">
+          <input type="text" id="city" name="city"
+            class="h-12 px-3 pt-5 pb-1 w-full bg-stone-50 border border-gray-500 rounded-md focus-within:border-2 focus-within:border-sky-600 text-sm font-extralight outline-none" />
           <label for="city"
             class="absolute left-3 top-3.5 text-gray-500 text-sm transition-all duration-200 ease-in-out pointer-events-none">City</label>
           <p class="empty hidden mt-1 ml-2 text-xs text-red-600">Enter a city</p>
         </div>
         <div class="state relative mb-6">
-          <select id="state" name="state" class="appearance-none h-12 px-3 pt-5 pb-1 w-full bg-stone-50 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent text-sm font-extralight cursor-pointer">
+          <select id="state" name="state"
+            class="appearance-none h-12 px-3 pt-5 pb-1 w-full bg-stone-50 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent text-sm font-extralight cursor-pointer">
             <option value="NSW" selected="selected">New South Wales</option>
             <option value="VIC">Victoria</option>
             <option value="QLD">Queensland</option>
@@ -70,7 +79,8 @@
           <div class="absolute top-3.5 right-3 font-[icomoon] text-gray-500 pointer-events-none"></div>
         </div>
         <div class="postcode relative mb-6">
-          <input type="number" id="postcode" name="postcode" class="h-12 px-3 pt-5 pb-1 w-full bg-stone-50 border border-gray-500 rounded-md focus-within:border-2 focus-within:border-sky-600 text-sm font-extralight outline-none" />
+          <input type="number" id="postcode" name="postcode"
+            class="h-12 px-3 pt-5 pb-1 w-full bg-stone-50 border border-gray-500 rounded-md focus-within:border-2 focus-within:border-sky-600 text-sm font-extralight outline-none" />
           <label for="postcode"
             class="absolute left-3 top-3.5 text-gray-500 text-sm transition-all duration-200 ease-in-out pointer-events-none">Postcode</label>
           <p class="empty hidden mt-1 ml-2 text-xs text-red-600">Enter a postcode</p>
@@ -79,14 +89,16 @@
       </div>
       <div class="flex justify-center mt-4 mb-12">
         <button type="submit"
-          class="bg-[#98252d] w-full h-10 font-bold text-stone-50 hover:bg-red-800 rounded-md cursor-pointer text-center leading-8">Place Order</button>
+          class="bg-[#98252d] w-full h-10 font-bold text-stone-50 hover:bg-red-800 rounded-md cursor-pointer text-center leading-8">Place
+          Order</button>
       </div>
-      
+
     </form>
   </main>
   <footer class="flex justify-between items-center px-6 bg-[#FFBF00] h-16 w-full border-t border-gray-500">
     <a href="index.html"><img src="/images/logo.png" class="h-10"></a>
   </footer>
-  <script src="checkout.js"></script>
+  <script src="js/checkout.js"></script>
 </body>
+
 </html>
