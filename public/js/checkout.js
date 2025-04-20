@@ -126,7 +126,7 @@ function checkStock(userData) {
 
       if (allAvailable) {
         // Save cart backup and user info before clearing cart
-        localStorage.setItem('cartBackup', JSON.stringify(cart))
+        localStorage.setItem('cartBackup', localStorage.getItem('cart'))
 
         // Save complete user info
         const userInfo = {

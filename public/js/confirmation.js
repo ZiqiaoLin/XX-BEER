@@ -68,6 +68,7 @@
 
     } else {
       message.innerHTML = `Insufficient stock: ${outOfStockProduct}. Please reorder.`
+      document.querySelector('.orderInfo').classList.add('hidden')
       let countdown = 5;
       subMessage.innerHTML = `Redirecting to your cart in ${countdown} seconds...`
 

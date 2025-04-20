@@ -8,6 +8,9 @@
       const navCategory = document.querySelector('#navCategory')
       const banners = document.querySelectorAll('#productBanner div')
       const link = document.querySelector('#quickLink')
+      const searchInput = document.querySelector('#searchContainer input[type="search"]')
+      const searchButton = document.querySelector('#searchContainer button')
+
 
       let lastScrollY = window.scrollY
 
@@ -47,6 +50,28 @@
           searchContainer.classList.remove('opacity-100', 'translate-y-0', 'max-h-[500px]')
           searchContainer.classList.add('opacity-0', '-translate-y-5', 'max-h-0')
           mainContent.classList.remove('blur-sm');
+          searchInput.value = ''
+        })
+      }
+
+      // Search functionality
+      if (searchInput) {
+        // Handle search button click and Enter key
+        function handleSearch() {
+          const searchTerm = searchInput.value.trim()
+          window.location.href = `search.html?q=${encodeURIComponent(searchTerm)}`
+        }
+
+        if (searchButton) {
+          searchButton.addEventListener('click', handleSearch)
+        }
+
+        // Handle Enter key press
+        searchInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault()
+            handleSearch()
+          }
         })
       }
 
@@ -54,6 +79,11 @@
         navCategory.addEventListener('click', e => {
           if (e.target.tagName === 'LI') {
             const category = e.target.dataset.category
+
+            if (window.location.pathname.includes('search.html')) {
+              window.location.href = `index.html#${category}`
+              return
+            }
 
             banners.forEach(div => {
               div.classList.toggle('hidden', div.dataset.category !== category)
@@ -70,8 +100,14 @@
             searchContainer.classList.remove('opacity-100', 'translate-y-0', 'max-h-[500px]')
             searchContainer.classList.add('opacity-0', '-translate-y-5', 'max-h-0')
             mainContent.classList.remove('blur-sm');
+            searchInput.value = ''
 
             const category = e.target.closest('a').dataset.category
+
+            if (window.location.pathname.includes('search.html')) {
+              window.location.href = `index.html#${category}`
+              return
+            }
 
             banners.forEach(div => {
               div.classList.toggle('hidden', div.dataset.category !== category)
@@ -81,60 +117,92 @@
         })
       }
 
-      const activeBanner = document.querySelector('#productBanner > div:not(.hidden)')
-      if (activeBanner) {
-        const activeCategory = activeBanner.dataset.category.toLowerCase()
-        renderProducts(activeCategory)
+      // Check for category in URL hash
+      const hashCategory = window.location.hash.slice(1)
+      if (hashCategory && banners.length > 0) {
+        banners.forEach(div => {
+          div.classList.toggle('hidden', div.dataset.category !== hashCategory)
+        })
+        renderProducts(hashCategory)
+      } else {
+        const activeBanner = document.querySelector('#productBanner > div:not(.hidden)')
+        if (activeBanner) {
+          const activeCategory = activeBanner.dataset.category.toLowerCase()
+          renderProducts(activeCategory)
+        }
       }
     }
   })
 })();
 
 // render product
-const renderProducts = (category) => {
+const renderProducts = (category, filteredProducts = null) => {
+  if (filteredProducts) {
+    renderProductList(filteredProducts)
+    return
+  }
+
   fetch('api/products')
     .then(res => res.json())
     .then(products => {
-      const container = document.querySelector('#productList')
-      container.innerHTML = ''
-      products.forEach(product => {
-        if (product.product_category.toLowerCase() === category.toLowerCase()) {
-          const inStock = product.product_stock > 0
-
-          container.innerHTML += `
-            <div class="productCard flex flex-col w-1/2 sm:w-1/3 border-r-[0.5px] border-r-gray-400 border-b-[0.5px] border-b-gray-400">
-              <div class="group overflow-hidden">
-                <img src="${product.product_src}" alt="${product.product_name}" class="w-full h-auto transform transition-transform duration-[500ms] group-hover:scale-120 group-hover:duration-[1000ms]">
-              </div>
-              <h3 class="font-extrabold text-2xl text-center">${product.product_name}</h3>
-              <div class="flex justify-around py-1.5 px-1.5">
-                <span class="flex items-center justify-center w-16 h-6 bg-[#98252d] text-stone-50 text-sm font-bold select-none">$${product.product_price}</span>
-                <span class="stock flex items-center justify-center h-6 text-sm font-medium select-none" data-stock="${product.product_stock}">${inStock ? 'IN STOCK' : 'OUT OF STOCK'}</span>
-              </div>
-
-              ${inStock ? `
-                <div class="flex justify-between items-center border border-black w-32 h-8 px-4 my-3 mx-auto select-none">
-                  <button class="decrease font-extralight text-2xl cursor-pointer pt-0.5">-</button>
-                  <span class="quantity font-light">1</span>
-                  <button class="increase font-extralight text-2xl cursor-pointer pt-0.5">+</button>
-                </div>
-                <button class="addToCart border border-[#98252d] w-44 h-8 mb-8 mx-auto font-bold text-[#98252d] hover:bg-[#98252d] hover:text-stone-50  cursor-pointer select-none" data-id="${product.product_id}">
-                  ADD TO CART
-                </button>
-              ` : `
-                <button class="border border-gray-400 w-44 h-8 mx-auto mb-8 font-bold text-gray-400 cursor-not-allowed line-through select-none">
-                  OUT OF ORDER
-                </button>
-              `}
-            </div>
-          `
-        }
-      })
-
-      quantityControls()
-      addToCart(products)
+      if (category) {
+        products = products.filter(product =>
+          product.product_category.toLowerCase() === category.toLowerCase()
+        )
+      }
+      renderProductList(products)
     });
 };
+
+// Render product list
+function renderProductList(products) {
+  const container = document.querySelector('#productList')
+  container.innerHTML = ''
+
+  if (products.length === 0) {
+    container.innerHTML = `
+      <div class="w-full text-center py-8">
+        <h2 class="text-2xl text-gray-700">No products found</h2>
+      </div>
+    `
+    return
+  }
+
+  products.forEach(product => {
+    const inStock = product.product_stock > 0
+
+    container.innerHTML += `
+      <div class="productCard flex flex-col w-1/2 sm:w-1/3 border-r-[0.5px] border-r-gray-400 border-b-[0.5px] border-b-gray-400">
+        <div class="group overflow-hidden">
+          <img src="${product.product_src}" alt="${product.product_name}" class="w-full h-auto transform transition-transform duration-[500ms] group-hover:scale-120 group-hover:duration-[1000ms]">
+        </div>
+        <h3 class="font-extrabold text-2xl text-center">${product.product_name}</h3>
+        <div class="flex justify-around py-1.5 px-1.5">
+          <span class="flex items-center justify-center w-16 h-6 bg-[#98252d] text-stone-50 text-sm font-bold select-none">$${product.product_price}</span>
+          <span class="stock flex items-center justify-center h-6 text-sm font-medium select-none" data-stock="${product.product_stock}">${inStock ? 'IN STOCK' : 'OUT OF STOCK'}</span>
+        </div>
+
+        ${inStock ? `
+          <div class="flex justify-between items-center border border-black w-32 h-8 px-4 my-3 mx-auto select-none">
+            <button class="decrease font-extralight text-2xl cursor-pointer pt-0.5">-</button>
+            <span class="quantity font-light">1</span>
+            <button class="increase font-extralight text-2xl cursor-pointer pt-0.5">+</button>
+          </div>
+          <button class="addToCart border border-[#98252d] w-44 h-8 mb-8 mx-auto font-bold text-[#98252d] hover:bg-[#98252d] hover:text-stone-50  cursor-pointer select-none" data-id="${product.product_id}">
+            ADD TO CART
+          </button>
+        ` : `
+          <button class="border border-gray-400 w-44 h-8 mx-auto mb-8 font-bold text-gray-400 cursor-not-allowed line-through select-none">
+            OUT OF ORDER
+          </button>
+        `}
+      </div>
+    `
+  })
+
+  quantityControls()
+  addToCart(products)
+}
 
 // quantity control 
 function quantityControls() {

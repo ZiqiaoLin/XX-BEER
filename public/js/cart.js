@@ -69,7 +69,7 @@ function renderCartPage() {
           <button data-id="${item.id}" class="increase font-extralight text-2xl cursor-pointer pt-0.5">+</button>
         </div>
         <div data-id="${item.id}" class="remove font-[icomoon] text-[#98252d] ml-2 hover:text-gray-500 cursor-pointer">
-          
+          
         </div>
       </div>
       <div class="text-right font-bold">
